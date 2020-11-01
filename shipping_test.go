@@ -80,8 +80,11 @@ func TestShippingCreateShipments(t *testing.T) {
 						PersonName:   "My My",
 						PhoneNumber1: "+6568727288",
 						CellPhone:    "+6568727288",
+						CompanyName:  "Relia",
+						EmailAddress: "thaitanloi365@gmail.com",
 					},
 					PartyAddress: &Address{
+						Line1:       "540 Airport Road Paya Lebar, 539938, Singapore",
 						City:        "Singapore",
 						CountryCode: types.CountryCodeSG,
 						PostCode:    "139945",
@@ -95,7 +98,12 @@ func TestShippingCreateShipments(t *testing.T) {
 					NumberOfPieces:     1,
 					DescriptionOfGoods: "Parcel",
 					GoodsOriginCountry: types.CountryCodeSG,
+					CashOnDeliveryAmount: &Money{
+						CurrencyCode: types.CurrencyCodeSGD,
+						Value:        12.4,
+					},
 				},
+
 				DueDate: time.Now().AddDate(0, 0, 3),
 			},
 		},
@@ -107,16 +115,23 @@ func TestShippingCreateShipments(t *testing.T) {
 
 func TestShippingCreatePickup(t *testing.T) {
 	var aramex = New(&Config{
-		IsLive:     false,
+		IsLive:     true,
 		ClientInfo: DefaultClientInfo,
 	})
 
+	loc, _ := time.LoadLocation("Asia/Singapore")
+
 	var current = time.Now()
-	var readyTime = current.AddDate(0, 0, 1)
-	var pickupDate = readyTime
+	var readyTime = time.Date(current.Year(), current.Month(), current.Day(), 18, 0, 0, 0, loc)
+	if readyTime.Before(current) {
+		readyTime = readyTime.AddDate(0, 0, 1)
+	}
+	var pickupDate = current
+	if pickupDate.Before(readyTime) {
+		pickupDate = readyTime.Add(time.Hour * 2)
+	}
 	var lastPickupTime = readyTime.AddDate(0, 0, 1)
 	var closingTime = readyTime.AddDate(0, 0, 1)
-
 	result, err := aramex.CreatePickup(context.Background(), &PickupCreationRequest{
 		Pickup: &Pickup{
 			ClosingTime:    closingTime,
@@ -152,6 +167,7 @@ func TestShippingCreatePickup(t *testing.T) {
 					},
 				},
 			},
+
 			Shipments: []*Shipment{
 				{
 					Shipper: &Party{
@@ -171,8 +187,11 @@ func TestShippingCreatePickup(t *testing.T) {
 							PersonName:   "My My",
 							PhoneNumber1: "+6568727288",
 							CellPhone:    "+6568727288",
+							CompanyName:  "Relia",
+							EmailAddress: "thaitanloi365@gmail.com",
 						},
 						PartyAddress: &Address{
+							Line1:       "540 Airport Road Paya Lebar, 539938, Singapore",
 							City:        "Singapore",
 							CountryCode: types.CountryCodeSG,
 							PostCode:    "139945",
@@ -186,7 +205,12 @@ func TestShippingCreatePickup(t *testing.T) {
 						NumberOfPieces:     1,
 						DescriptionOfGoods: "Parcel",
 						GoodsOriginCountry: types.CountryCodeSG,
+						CashOnDeliveryAmount: &Money{
+							CurrencyCode: types.CurrencyCodeSGD,
+							Value:        12.4,
+						},
 					},
+
 					DueDate: time.Now().AddDate(0, 0, 3),
 				},
 			},

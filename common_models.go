@@ -80,16 +80,16 @@ type Address struct {
 	Line2               string            `xml:"Line2" json:"Line2"`
 	Line3               string            `xml:"Line3" json:"Line3"`
 	City                string            `xml:"City" json:"City"`
-	StateOrProvinceCode string            `xml:"StateOrProvinceCode" json:"StateOrProvinceCode"`
+	StateOrProvinceCode string            `xml:"StateOrProvinceCode,omitempty" json:"StateOrProvinceCode,omitempty"`
 	PostCode            string            `xml:"PostCode" json:"PostCode"`
 	CountryCode         types.CountryCode `xml:"CountryCode" json:"CountryCode"`
-	Longitude           float64           `xml:"Longitude" json:"Longitude"`
-	Latitude            float64           `xml:"Latitude" json:"Latitude"`
-	BuildingNumber      string            `xml:"BuildingNumber" json:"BuildingNumber"`
-	BuildingName        string            `xml:"BuildingName" json:"BuildingName"`
-	Floor               string            `xml:"Floor" json:"Floor"`
-	Apartment           string            `xml:"Apartment" json:"Apartment"`
-	POBox               string            `xml:"POBox" json:"POBox"`
+	Longitude           float64           `xml:"Longitude,omitempty" json:"Longitude,omitempty"`
+	Latitude            float64           `xml:"Latitude,omitempty" json:"Latitude,omitempty"`
+	BuildingNumber      string            `xml:"BuildingNumber,omitempty" json:"BuildingNumber,omitempty"`
+	BuildingName        string            `xml:"BuildingName,omitempty" json:"BuildingName,omitempty"`
+	Floor               string            `xml:"Floor,omitempty" json:"Floor,omitempty"`
+	Apartment           string            `xml:"Apartment,omitempty" json:"Apartment,omitempty"`
+	POBox               string            `xml:"POBox,omitempty" json:"POBox"`
 	Description         string            `xml:"Description" json:"Description"`
 }
 

@@ -112,7 +112,7 @@ type pickupCreationResponse struct {
 	Transaction     *Transaction         `xml:"Transaction" json:"Transaction"`
 	Notifications   *arrayOfNotification `xml:"Notifications" json:"Notifications"`
 	HasErrors       bool                 `xml:"HasErrors" json:"HasErrors"`
-	ProcessedPickup *ProcessedPickup     `xml:"ProcessedPickup" json:"ProcessedPickup"`
+	ProcessedPickup *processedPickup     `xml:"ProcessedPickup" json:"ProcessedPickup"`
 }
 
 // PickupCreationRequest request
@@ -201,10 +201,36 @@ func (a *Aramex) CreatePickup(ctx context.Context, request *PickupCreationReques
 	}
 
 	var response = &PickupCreationResponse{
-		Transaction:     resp.Transaction,
-		HasErrors:       resp.HasErrors,
-		Notifications:   resp.Notifications.Notification,
-		ProcessedPickup: resp.ProcessedPickup,
+		Transaction:   resp.Transaction,
+		HasErrors:     resp.HasErrors,
+		Notifications: resp.Notifications.Notification,
+	}
+
+	if resp.ProcessedPickup != nil {
+		response.ProcessedPickup = &ProcessedPickup{
+			GUID:       resp.ProcessedPickup.GUID,
+			ID:         resp.ProcessedPickup.ID,
+			Reference1: resp.ProcessedPickup.Reference1,
+			Reference2: resp.ProcessedPickup.Reference2,
+		}
+
+		if resp.ProcessedPickup.ProcessedShipments != nil {
+			for _, shipment := range resp.ProcessedPickup.ProcessedShipments.ProcessedShipment {
+				response.ProcessedPickup.ProcessedShipments = append(response.ProcessedPickup.ProcessedShipments, &ProcessedShipment{
+					ForeignHAWB:         shipment.ForeignHAWB,
+					HasErrors:           shipment.HasErrors,
+					ID:                  shipment.ID,
+					Notifications:       shipment.Notifications.Notification,
+					Reference1:          shipment.Reference1,
+					Reference2:          shipment.Reference2,
+					Reference3:          shipment.Reference3,
+					ShipmentDetails:     shipment.ShipmentDetails,
+					ShipmentAttachments: shipment.ShipmentAttachments.ProcessedShipmentAttachment,
+					ShipmentLabel:       shipment.ShipmentLabel,
+				})
+			}
+
+		}
 	}
 
 	return response, nil
