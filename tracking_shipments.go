@@ -3,10 +3,11 @@ package aramex
 import (
 	"context"
 	"encoding/xml"
+	"time"
 )
 
 type arrayOfTrackingResult struct {
-	TrackingResult []*TrackingResult `xml:"TrackingResult" json:"TrackingResult"`
+	TrackingResult []*trackingResult `xml:"TrackingResult" json:"TrackingResult"`
 }
 
 type arrayOfKeyValueOfstringArrayOfTrackingResultmFAkxlpY struct {
@@ -17,11 +18,25 @@ type arrayOfKeyValueOfstringArrayOfTrackingResultmFAkxlpY struct {
 }
 
 // TrackingResult tracking result
-type TrackingResult struct {
+type trackingResult struct {
 	WaybillNumber     string `xml:"WaybillNumber" json:"WaybillNumber"`
 	UpdateCode        string `xml:"UpdateCode" json:"UpdateCode"`
 	UpdateDescription string `xml:"UpdateDescription" json:"UpdateDescription"`
 	UpdateDateTime    string `xml:"UpdateDateTime" json:"UpdateDateTime"`
+
+	Comments         string `xml:"Comments" json:"Comments"`
+	ProblemCode      string `xml:"ProblemCode" json:"ProblemCode"`
+	GrossWeight      string `xml:"GrossWeight" json:"GrossWeight"`
+	ChargeableWeight string `xml:"ChargeableWeight" json:"ChargeableWeight"`
+	WeightUnit       string `xml:"WeightUnit" json:"WeightUnit"`
+}
+
+// TrackingResult tracking result
+type TrackingResult struct {
+	WaybillNumber     string    `xml:"WaybillNumber" json:"WaybillNumber"`
+	UpdateCode        string    `xml:"UpdateCode" json:"UpdateCode"`
+	UpdateDescription string    `xml:"UpdateDescription" json:"UpdateDescription"`
+	UpdateDateTime    time.Time `xml:"UpdateDateTime" json:"UpdateDateTime"`
 
 	Comments         string `xml:"Comments" json:"Comments"`
 	ProblemCode      string `xml:"ProblemCode" json:"ProblemCode"`
@@ -86,7 +101,23 @@ func (a *Aramex) TrackShipments(ctx context.Context, request *ShipmentTrackingRe
 	}
 
 	for _, v := range resp.TrackingResults.KeyValueOfstringArrayOfTrackingResultmFAkxlpY {
-		response.TrackingResults[v.Key] = v.Value.TrackingResult
+
+		var results = []*TrackingResult{}
+		for _, value := range v.Value.TrackingResult {
+			results = append(results, &TrackingResult{
+				WaybillNumber:     value.WaybillNumber,
+				UpdateCode:        value.UpdateCode,
+				UpdateDescription: value.UpdateDescription,
+				Comments:          value.Comments,
+				ProblemCode:       value.ProblemCode,
+				GrossWeight:       value.GrossWeight,
+				ChargeableWeight:  value.ChargeableWeight,
+				WeightUnit:        value.WeightUnit,
+				UpdateDateTime:    a.parseTime(value.UpdateDateTime),
+			})
+
+		}
+		response.TrackingResults[v.Key] = results
 	}
 
 	return response, nil

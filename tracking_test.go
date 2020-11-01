@@ -9,12 +9,12 @@ import (
 
 func TestTrackShipments(t *testing.T) {
 	var aramex = New(&Config{
-		IsLive:     true,
+		IsLive:     false,
 		ClientInfo: DefaultClientInfo,
 	})
 	result, err := aramex.TrackShipments(context.Background(), &ShipmentTrackingRequest{
 		Shipments: []string{
-			"45512222571",
+			"41118182136",
 		},
 	})
 	assert.NoError(t, err)

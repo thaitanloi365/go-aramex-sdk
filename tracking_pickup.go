@@ -67,14 +67,8 @@ func (a *Aramex) TrackPickup(ctx context.Context, request *PickupTrackingRequest
 		LastStatus:            resp.LastStatus,
 		Reference:             resp.Reference,
 		LastStatusDescription: resp.LastStatusDescription,
-	}
-
-	if t, err := time.Parse("2006-01-02T15:04:05", resp.CollectionDate); err == nil {
-		response.CollectionDate = t
-	}
-
-	if t, err := time.Parse("2006-01-02T15:04:05", resp.PickupDate); err == nil {
-		response.PickupDate = t
+		CollectionDate:        a.parseTime(resp.CollectionDate),
+		PickupDate:            a.parseTime(resp.CollectionDate),
 	}
 
 	return response, nil
