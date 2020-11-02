@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/hooklift/gowsdl/soap"
 	"github.com/thaitanloi365/go-aramex-sdk/types"
@@ -75,14 +74,6 @@ func (a *Aramex) printJSON(in interface{}) {
 	a.logger.Printf("%s", data)
 }
 
-func (a *Aramex) parseTime(timeStr string) time.Time {
-	t, err := time.Parse("2006-01-02T15:04:05", timeStr)
-	if err != nil {
-		a.logger.Printf("Parse time error %v", err)
-	}
-
-	return t
-}
 func (a *Aramex) toShipmentDetailsRequest(s *ShipmentDetails) *shipmentDetails {
 	var sm = &shipmentDetails{
 		Dimensions:                      s.Dimensions,

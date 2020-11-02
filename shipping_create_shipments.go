@@ -3,7 +3,6 @@ package aramex
 import (
 	"context"
 	"encoding/xml"
-	"time"
 
 	"github.com/thaitanloi365/go-aramex-sdk/types"
 )
@@ -106,9 +105,9 @@ type ProcessedShipmentDetails struct {
 }
 
 type scheduledDelivery struct {
-	PreferredDeliveryDate             time.Time `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
-	PreferredDeliveryTimeFrame_x0020_ string    `xml:"PreferredDeliveryTimeFrame_x0020_" json:"PreferredDeliveryTimeFrame_x0020_"`
-	PreferredDeliveryTime             string    `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
+	PreferredDeliveryDate             types.CustomTime `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
+	PreferredDeliveryTimeFrame_x0020_ string           `xml:"PreferredDeliveryTimeFrame_x0020_" json:"PreferredDeliveryTimeFrame_x0020_"`
+	PreferredDeliveryTime             string           `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
 }
 
 // DeliveryInstructions instructions
@@ -192,8 +191,8 @@ type shipment struct {
 	Shipper                *Party             `xml:"Shipper" json:"Shipper"`
 	Consignee              *Party             `xml:"Consignee" json:"Consignee"`
 	ThirdParty             *Party             `xml:"ThirdParty" json:"ThirdParty"`
-	ShippingDateTime       time.Time          `xml:"ShippingDateTime" json:"ShippingDateTime"`
-	DueDate                time.Time          `xml:"DueDate" json:"DueDate"`
+	ShippingDateTime       types.CustomTime   `xml:"ShippingDateTime" json:"ShippingDateTime"`
+	DueDate                types.CustomTime   `xml:"DueDate" json:"DueDate"`
 	Comments               string             `xml:"Comments" json:"Comments"`
 	PickupLocation         string             `xml:"PickupLocation" json:"PickupLocation"`
 	OperationsInstructions string             `xml:"OperationsInstructions" json:"OperationsInstructions"`
@@ -268,8 +267,8 @@ type ProcessedShipment struct {
 
 // ScheduledDelivery scheduled
 type ScheduledDelivery struct {
-	PreferredDeliveryDate time.Time `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
-	PreferredDeliveryTime string    `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
+	PreferredDeliveryDate types.CustomTime `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
+	PreferredDeliveryTime string           `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
 }
 
 // Shipment shipment
@@ -280,8 +279,8 @@ type Shipment struct {
 	Shipper                *Party             `xml:"Shipper" json:"Shipper"`
 	Consignee              *Party             `xml:"Consignee" json:"Consignee"`
 	ThirdParty             *Party             `xml:"ThirdParty" json:"ThirdParty"`
-	ShippingDateTime       time.Time          `xml:"ShippingDateTime" json:"ShippingDateTime"`
-	DueDate                time.Time          `xml:"DueDate" json:"DueDate"`
+	ShippingDateTime       types.CustomTime   `xml:"ShippingDateTime" json:"ShippingDateTime"`
+	DueDate                types.CustomTime   `xml:"DueDate" json:"DueDate"`
 	Comments               string             `xml:"Comments" json:"Comments"`
 	PickupLocation         string             `xml:"PickupLocation" json:"PickupLocation"`
 	OperationsInstructions string             `xml:"OperationsInstructions" json:"OperationsInstructions"`

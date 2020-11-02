@@ -3,7 +3,6 @@ package aramex
 import (
 	"context"
 	"encoding/xml"
-	"time"
 
 	"github.com/thaitanloi365/go-aramex-sdk/types"
 )
@@ -45,10 +44,10 @@ type Pickup struct {
 	PickupAddress     *Address            `xml:"PickupAddress" json:"PickupAddress"`
 	PickupContact     *Contact            `xml:"PickupContact" json:"PickupContact"`
 	PickupLocation    string              `xml:"PickupLocation" json:"PickupLocation"`
-	PickupDate        time.Time           `xml:"PickupDate" json:"PickupDate"`
-	ReadyTime         time.Time           `xml:"ReadyTime" json:"ReadyTime"`
-	LastPickupTime    time.Time           `xml:"LastPickupTime" json:"LastPickupTime"`
-	ClosingTime       time.Time           `xml:"ClosingTime" json:"ClosingTime"`
+	PickupDate        types.CustomTime    `xml:"PickupDate" json:"PickupDate"`
+	ReadyTime         types.CustomTime    `xml:"ReadyTime" json:"ReadyTime"`
+	LastPickupTime    types.CustomTime    `xml:"LastPickupTime" json:"LastPickupTime"`
+	ClosingTime       types.CustomTime    `xml:"ClosingTime" json:"ClosingTime"`
 	Comments          string              `xml:"Comments" json:"Comments"`
 	Reference1        string              `xml:"Reference1" json:"Reference1"`
 	Reference2        string              `xml:"Reference2" json:"Reference2"`
@@ -74,10 +73,10 @@ type pickup struct {
 	PickupAddress     *Address                 `xml:"PickupAddress" json:"PickupAddress"`
 	PickupContact     *Contact                 `xml:"PickupContact" json:"PickupContact"`
 	PickupLocation    string                   `xml:"PickupLocation" json:"PickupLocation"`
-	PickupDate        time.Time                `xml:"PickupDate" json:"PickupDate"`
-	ReadyTime         time.Time                `xml:"ReadyTime" json:"ReadyTime"`
-	LastPickupTime    time.Time                `xml:"LastPickupTime" json:"LastPickupTime"`
-	ClosingTime       time.Time                `xml:"ClosingTime" json:"ClosingTime"`
+	PickupDate        types.CustomTime         `xml:"PickupDate,omitempty" json:"PickupDate"`
+	ReadyTime         types.CustomTime         `xml:"ReadyTime,omitempty" json:"ReadyTime"`
+	LastPickupTime    types.CustomTime         `xml:"LastPickupTime,omitempty" json:"LastPickupTime"`
+	ClosingTime       types.CustomTime         `xml:"ClosingTime,omitempty" json:"ClosingTime"`
 	Comments          string                   `xml:"Comments" json:"Comments"`
 	Reference1        string                   `xml:"Reference1" json:"Reference1"`
 	Reference2        string                   `xml:"Reference2" json:"Reference2"`

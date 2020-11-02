@@ -3,7 +3,8 @@ package aramex
 import (
 	"context"
 	"encoding/xml"
-	"time"
+
+	"github.com/thaitanloi365/go-aramex-sdk/types"
 )
 
 type pickupTrackingRequest struct {
@@ -20,8 +21,8 @@ type pickupTrackingResponse struct {
 	HasErrors             bool                 `xml:"HasErrors" json:"HasErrors"`
 	Entity                string               `xml:"Entity" json:"Entity"`
 	Reference             string               `xml:"Reference" json:"Reference"`
-	CollectionDate        string               `xml:"CollectionDate" json:"CollectionDate"`
-	PickupDate            string               `xml:"PickupDate" json:"PickupDate"`
+	CollectionDate        types.CustomTime     `xml:"CollectionDate" json:"CollectionDate"`
+	PickupDate            types.CustomTime     `xml:"PickupDate" json:"PickupDate"`
 	LastStatus            string               `xml:"LastStatus" json:"LastStatus"`
 	LastStatusDescription string               `xml:"LastStatusDescription" json:"LastStatusDescription"`
 	CollectedWaybills     *arrayOfstring       `xml:"CollectedWaybills" json:"CollectedWaybills"`
@@ -39,8 +40,8 @@ type PickupTrackingResponse struct {
 	HasErrors             bool
 	Entity                string
 	Reference             string
-	CollectionDate        time.Time
-	PickupDate            time.Time
+	CollectionDate        types.CustomTime
+	PickupDate            types.CustomTime
 	LastStatus            string
 	LastStatusDescription string
 	CollectedWaybills     []string
@@ -67,8 +68,8 @@ func (a *Aramex) TrackPickup(ctx context.Context, request *PickupTrackingRequest
 		LastStatus:            resp.LastStatus,
 		Reference:             resp.Reference,
 		LastStatusDescription: resp.LastStatusDescription,
-		CollectionDate:        a.parseTime(resp.CollectionDate),
-		PickupDate:            a.parseTime(resp.CollectionDate),
+		CollectionDate:        resp.CollectionDate,
+		PickupDate:            resp.PickupDate,
 	}
 
 	return response, nil

@@ -3,11 +3,12 @@ package aramex
 import (
 	"context"
 	"encoding/xml"
-	"time"
+
+	"github.com/thaitanloi365/go-aramex-sdk/types"
 )
 
 type arrayOfTrackingResult struct {
-	TrackingResult []*trackingResult `xml:"TrackingResult" json:"TrackingResult"`
+	TrackingResult []*TrackingResult `xml:"TrackingResult" json:"TrackingResult"`
 }
 
 type arrayOfKeyValueOfstringArrayOfTrackingResultmFAkxlpY struct {
@@ -18,25 +19,11 @@ type arrayOfKeyValueOfstringArrayOfTrackingResultmFAkxlpY struct {
 }
 
 // TrackingResult tracking result
-type trackingResult struct {
-	WaybillNumber     string `xml:"WaybillNumber" json:"WaybillNumber"`
-	UpdateCode        string `xml:"UpdateCode" json:"UpdateCode"`
-	UpdateDescription string `xml:"UpdateDescription" json:"UpdateDescription"`
-	UpdateDateTime    string `xml:"UpdateDateTime" json:"UpdateDateTime"`
-
-	Comments         string `xml:"Comments" json:"Comments"`
-	ProblemCode      string `xml:"ProblemCode" json:"ProblemCode"`
-	GrossWeight      string `xml:"GrossWeight" json:"GrossWeight"`
-	ChargeableWeight string `xml:"ChargeableWeight" json:"ChargeableWeight"`
-	WeightUnit       string `xml:"WeightUnit" json:"WeightUnit"`
-}
-
-// TrackingResult tracking result
 type TrackingResult struct {
-	WaybillNumber     string    `xml:"WaybillNumber" json:"WaybillNumber"`
-	UpdateCode        string    `xml:"UpdateCode" json:"UpdateCode"`
-	UpdateDescription string    `xml:"UpdateDescription" json:"UpdateDescription"`
-	UpdateDateTime    time.Time `xml:"UpdateDateTime" json:"UpdateDateTime"`
+	WaybillNumber     string           `xml:"WaybillNumber" json:"WaybillNumber"`
+	UpdateCode        string           `xml:"UpdateCode" json:"UpdateCode"`
+	UpdateDescription string           `xml:"UpdateDescription" json:"UpdateDescription"`
+	UpdateDateTime    types.CustomTime `xml:"UpdateDateTime" json:"UpdateDateTime"`
 
 	Comments         string `xml:"Comments" json:"Comments"`
 	ProblemCode      string `xml:"ProblemCode" json:"ProblemCode"`
@@ -101,23 +88,7 @@ func (a *Aramex) TrackShipments(ctx context.Context, request *ShipmentTrackingRe
 	}
 
 	for _, v := range resp.TrackingResults.KeyValueOfstringArrayOfTrackingResultmFAkxlpY {
-
-		var results = []*TrackingResult{}
-		for _, value := range v.Value.TrackingResult {
-			results = append(results, &TrackingResult{
-				WaybillNumber:     value.WaybillNumber,
-				UpdateCode:        value.UpdateCode,
-				UpdateDescription: value.UpdateDescription,
-				Comments:          value.Comments,
-				ProblemCode:       value.ProblemCode,
-				GrossWeight:       value.GrossWeight,
-				ChargeableWeight:  value.ChargeableWeight,
-				WeightUnit:        value.WeightUnit,
-				UpdateDateTime:    a.parseTime(value.UpdateDateTime),
-			})
-
-		}
-		response.TrackingResults[v.Key] = results
+		response.TrackingResults[v.Key] = v.Value.TrackingResult
 	}
 
 	return response, nil

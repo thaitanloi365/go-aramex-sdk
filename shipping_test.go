@@ -104,7 +104,9 @@ func TestShippingCreateShipments(t *testing.T) {
 					},
 				},
 
-				DueDate: time.Now().AddDate(0, 0, 3),
+				DueDate: types.CustomTime{
+					Time: time.Now().AddDate(0, 0, 3),
+				},
 			},
 		},
 	})
@@ -115,7 +117,7 @@ func TestShippingCreateShipments(t *testing.T) {
 
 func TestShippingCreatePickup(t *testing.T) {
 	var aramex = New(&Config{
-		IsLive:     true,
+		IsLive:     false,
 		ClientInfo: DefaultClientInfo,
 	})
 
@@ -134,10 +136,18 @@ func TestShippingCreatePickup(t *testing.T) {
 	var closingTime = readyTime.AddDate(0, 0, 1)
 	result, err := aramex.CreatePickup(context.Background(), &PickupCreationRequest{
 		Pickup: &Pickup{
-			ClosingTime:    closingTime,
-			PickupDate:     pickupDate,
-			LastPickupTime: lastPickupTime,
-			ReadyTime:      readyTime,
+			ClosingTime: types.CustomTime{
+				Time: closingTime,
+			},
+			PickupDate: types.CustomTime{
+				Time: pickupDate,
+			},
+			LastPickupTime: types.CustomTime{
+				Time: lastPickupTime,
+			},
+			ReadyTime: types.CustomTime{
+				Time: readyTime,
+			},
 			Status:         types.PickupStatusReady,
 			PickupLocation: "At reception",
 			Reference1:     "001122",
@@ -211,7 +221,9 @@ func TestShippingCreatePickup(t *testing.T) {
 						},
 					},
 
-					DueDate: time.Now().AddDate(0, 0, 3),
+					DueDate: types.CustomTime{
+						Time: time.Now().AddDate(0, 0, 3),
+					},
 				},
 			},
 		},
