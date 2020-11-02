@@ -115,6 +115,75 @@ func TestShippingCreateShipments(t *testing.T) {
 	aramex.printJSON(&result)
 }
 
+func TestShippingCreatePickupFromExistingShipments(t *testing.T) {
+	var aramex = New(&Config{
+		IsLive:     false,
+		ClientInfo: DefaultClientInfo,
+	})
+
+	loc, _ := time.LoadLocation("Asia/Singapore")
+
+	var current = time.Now()
+	var readyTime = time.Date(current.Year(), current.Month(), current.Day(), 18, 0, 0, 0, loc)
+	if readyTime.Before(current) {
+		readyTime = readyTime.AddDate(0, 0, 1)
+	}
+	var pickupDate = current
+	if pickupDate.Before(readyTime) {
+		pickupDate = readyTime.Add(time.Hour * 2)
+	}
+	var lastPickupTime = readyTime.AddDate(0, 0, 1)
+	var closingTime = readyTime.AddDate(0, 0, 1)
+	result, err := aramex.CreatePickup(context.Background(), &PickupCreationRequest{
+		Pickup: &Pickup{
+			ClosingTime: types.CustomTime{
+				Time: closingTime,
+			},
+			PickupDate: types.CustomTime{
+				Time: pickupDate,
+			},
+			LastPickupTime: types.CustomTime{
+				Time: lastPickupTime,
+			},
+			ReadyTime: types.CustomTime{
+				Time: readyTime,
+			},
+			Status:         types.PickupStatusReady,
+			PickupLocation: "At reception",
+			Reference1:     "001122",
+			PickupContact: &Contact{
+				PersonName:   "Loi",
+				PhoneNumber1: "+12345678910",
+				CellPhone:    "+12345678910",
+				Title:        "Pick up",
+				CompanyName:  "Relia",
+			},
+			PickupAddress: &Address{
+				City:        "Singapore",
+				CountryCode: types.CountryCodeSG,
+				PostCode:    "139945",
+			},
+			PickupItems: []*PickupItemDetail{
+				{
+					NumberOfPieces:    1,
+					NumberOfShipments: 1,
+					ShipmentWeight: &Weight{
+						Unit:  types.WeightUnitKG,
+						Value: 0.5,
+					},
+					ShipmentVolume: &Volume{
+						Unit:  types.VolumeUnitCm3,
+						Value: 10,
+					},
+				},
+			},
+		},
+	})
+	assert.NoError(t, err)
+
+	aramex.printJSON(&result)
+
+}
 func TestShippingCreatePickup(t *testing.T) {
 	var aramex = New(&Config{
 		IsLive:     false,
