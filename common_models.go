@@ -33,12 +33,6 @@ type arrayOfNotification struct {
 	Notification []*Notification `xml:"Notification" json:"Notification"`
 }
 
-// Notification notification
-type Notification struct {
-	Code    string `xml:"Code" json:"Code"`
-	Message string `xml:"Message" json:"Message"`
-}
-
 // Dimensions dimension
 type Dimensions struct {
 	Length float64             `xml:"Length" json:"Length"`
