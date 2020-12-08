@@ -104,9 +104,7 @@ func TestShippingCreateShipments(t *testing.T) {
 					},
 				},
 
-				DueDate: types.CustomTime{
-					Time: time.Now().AddDate(0, 0, 3),
-				},
+				DueDate: time.Now().AddDate(0, 0, 3).Format("2006-01-02T15:04:05"),
 			},
 		},
 	})
@@ -136,18 +134,10 @@ func TestShippingCreatePickupFromExistingShipments(t *testing.T) {
 	var closingTime = readyTime.AddDate(0, 0, 1)
 	result, err := aramex.CreatePickup(context.Background(), &PickupCreationRequest{
 		Pickup: &Pickup{
-			ClosingTime: types.CustomTime{
-				Time: closingTime,
-			},
-			PickupDate: types.CustomTime{
-				Time: pickupDate,
-			},
-			LastPickupTime: types.CustomTime{
-				Time: lastPickupTime,
-			},
-			ReadyTime: types.CustomTime{
-				Time: readyTime,
-			},
+			ClosingTime:    closingTime.Format("2006-01-02T15:04:05"),
+			PickupDate:     pickupDate.Format("2006-01-02T15:04:05"),
+			LastPickupTime: lastPickupTime.Format("2006-01-02T15:04:05"),
+			ReadyTime:      readyTime.Format("2006-01-02T15:04:05"),
 			Status:         types.PickupStatusReady,
 			PickupLocation: "At reception",
 			Reference1:     "001122",
@@ -205,18 +195,10 @@ func TestShippingCreatePickup(t *testing.T) {
 	var closingTime = readyTime.AddDate(0, 0, 1)
 	result, err := aramex.CreatePickup(context.Background(), &PickupCreationRequest{
 		Pickup: &Pickup{
-			ClosingTime: types.CustomTime{
-				Time: closingTime,
-			},
-			PickupDate: types.CustomTime{
-				Time: pickupDate,
-			},
-			LastPickupTime: types.CustomTime{
-				Time: lastPickupTime,
-			},
-			ReadyTime: types.CustomTime{
-				Time: readyTime,
-			},
+			ClosingTime:    closingTime.Format("2006-01-02T15:04:05"),
+			PickupDate:     pickupDate.Format("2006-01-02T15:04:05"),
+			LastPickupTime: lastPickupTime.Format("2006-01-02T15:04:05"),
+			ReadyTime:      readyTime.Format("2006-01-02T15:04:05"),
 			Status:         types.PickupStatusReady,
 			PickupLocation: "At reception",
 			Reference1:     "001122",
@@ -290,9 +272,7 @@ func TestShippingCreatePickup(t *testing.T) {
 						},
 					},
 
-					DueDate: types.CustomTime{
-						Time: time.Now().AddDate(0, 0, 3),
-					},
+					DueDate: time.Now().AddDate(0, 0, 3).Format("2006-01-02T15:04:05"),
 				},
 			},
 		},

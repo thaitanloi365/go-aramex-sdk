@@ -3,8 +3,6 @@ package aramex
 import (
 	"context"
 	"encoding/xml"
-
-	"github.com/thaitanloi365/go-aramex-sdk/types"
 )
 
 type arrayOfTrackingResult struct {
@@ -20,10 +18,10 @@ type arrayOfKeyValueOfstringArrayOfTrackingResultmFAkxlpY struct {
 
 // TrackingResult tracking result
 type TrackingResult struct {
-	WaybillNumber     string           `xml:"WaybillNumber" json:"WaybillNumber"`
-	UpdateCode        string           `xml:"UpdateCode" json:"UpdateCode"`
-	UpdateDescription string           `xml:"UpdateDescription" json:"UpdateDescription"`
-	UpdateDateTime    types.CustomTime `xml:"UpdateDateTime" json:"UpdateDateTime"`
+	WaybillNumber     string `xml:"WaybillNumber" json:"WaybillNumber"`
+	UpdateCode        string `xml:"UpdateCode" json:"UpdateCode"`
+	UpdateDescription string `xml:"UpdateDescription" json:"UpdateDescription"`
+	UpdateDateTime    string `xml:"UpdateDateTime" json:"UpdateDateTime"`
 
 	Comments         string `xml:"Comments" json:"Comments"`
 	ProblemCode      string `xml:"ProblemCode" json:"ProblemCode"`

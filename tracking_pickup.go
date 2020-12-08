@@ -3,8 +3,6 @@ package aramex
 import (
 	"context"
 	"encoding/xml"
-
-	"github.com/thaitanloi365/go-aramex-sdk/types"
 )
 
 type pickupTrackingRequest struct {
@@ -21,8 +19,8 @@ type pickupTrackingResponse struct {
 	HasErrors             bool                 `xml:"HasErrors" json:"HasErrors"`
 	Entity                string               `xml:"Entity" json:"Entity"`
 	Reference             string               `xml:"Reference" json:"Reference"`
-	CollectionDate        types.CustomTime     `xml:"CollectionDate" json:"CollectionDate"`
-	PickupDate            types.CustomTime     `xml:"PickupDate" json:"PickupDate"`
+	CollectionDate        string               `xml:"CollectionDate" json:"CollectionDate"`
+	PickupDate            string               `xml:"PickupDate" json:"PickupDate"`
 	LastStatus            string               `xml:"LastStatus" json:"LastStatus"`
 	LastStatusDescription string               `xml:"LastStatusDescription" json:"LastStatusDescription"`
 	CollectedWaybills     *arrayOfstring       `xml:"CollectedWaybills" json:"CollectedWaybills"`
@@ -40,8 +38,8 @@ type PickupTrackingResponse struct {
 	HasErrors             bool
 	Entity                string
 	Reference             string
-	CollectionDate        types.CustomTime
-	PickupDate            types.CustomTime
+	CollectionDate        string
+	PickupDate            string
 	LastStatus            string
 	LastStatusDescription string
 	CollectedWaybills     []string

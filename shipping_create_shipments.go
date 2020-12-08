@@ -105,9 +105,9 @@ type ProcessedShipmentDetails struct {
 }
 
 type scheduledDelivery struct {
-	PreferredDeliveryDate             types.CustomTime `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
-	PreferredDeliveryTimeFrame_x0020_ string           `xml:"PreferredDeliveryTimeFrame_x0020_" json:"PreferredDeliveryTimeFrame_x0020_"`
-	PreferredDeliveryTime             string           `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
+	PreferredDeliveryDate             string `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
+	PreferredDeliveryTimeFrame_x0020_ string `xml:"PreferredDeliveryTimeFrame_x0020_" json:"PreferredDeliveryTimeFrame_x0020_"`
+	PreferredDeliveryTime             string `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
 }
 
 // DeliveryInstructions instructions
@@ -191,8 +191,8 @@ type shipment struct {
 	Shipper                *Party             `xml:"Shipper" json:"Shipper"`
 	Consignee              *Party             `xml:"Consignee" json:"Consignee"`
 	ThirdParty             *Party             `xml:"ThirdParty" json:"ThirdParty"`
-	ShippingDateTime       types.CustomTime   `xml:"ShippingDateTime" json:"ShippingDateTime"`
-	DueDate                types.CustomTime   `xml:"DueDate" json:"DueDate"`
+	ShippingDateTime       string             `xml:"ShippingDateTime" json:"ShippingDateTime"`
+	DueDate                string             `xml:"DueDate" json:"DueDate"`
 	Comments               string             `xml:"Comments" json:"Comments"`
 	PickupLocation         string             `xml:"PickupLocation" json:"PickupLocation"`
 	OperationsInstructions string             `xml:"OperationsInstructions" json:"OperationsInstructions"`
@@ -267,8 +267,8 @@ type ProcessedShipment struct {
 
 // ScheduledDelivery scheduled
 type ScheduledDelivery struct {
-	PreferredDeliveryDate types.CustomTime `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
-	PreferredDeliveryTime string           `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
+	PreferredDeliveryDate string `xml:"PreferredDeliveryDate" json:"PreferredDeliveryDate"`
+	PreferredDeliveryTime string `xml:"PreferredDeliveryTime" json:"PreferredDeliveryTime"`
 }
 
 // Shipment shipment
@@ -279,8 +279,8 @@ type Shipment struct {
 	Shipper                *Party             `xml:"Shipper" json:"Shipper"`
 	Consignee              *Party             `xml:"Consignee" json:"Consignee"`
 	ThirdParty             *Party             `xml:"ThirdParty" json:"ThirdParty"`
-	ShippingDateTime       types.CustomTime   `xml:"ShippingDateTime" json:"ShippingDateTime"`
-	DueDate                types.CustomTime   `xml:"DueDate" json:"DueDate"`
+	ShippingDateTime       string             `xml:"ShippingDateTime" json:"ShippingDateTime"`
+	DueDate                string             `xml:"DueDate" json:"DueDate"`
 	Comments               string             `xml:"Comments" json:"Comments"`
 	PickupLocation         string             `xml:"PickupLocation" json:"PickupLocation"`
 	OperationsInstructions string             `xml:"OperationsInstructions" json:"OperationsInstructions"`
