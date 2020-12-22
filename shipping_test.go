@@ -1,7 +1,11 @@
 package aramex
 
 import (
+	"bufio"
 	"context"
+	"encoding/base64"
+	"io/ioutil"
+	"os"
 	"testing"
 	"time"
 
@@ -60,34 +64,53 @@ func TestShippingCreateShipments(t *testing.T) {
 		IsLive:     false,
 		ClientInfo: DefaultClientInfo,
 	})
+
+	f, err := os.Open("/Users/relia/Desktop/shipping-services-api-manual.pdf")
+	if err != nil {
+		panic(err)
+	}
+
+	// Read entire JPG into byte slice.
+	reader := bufio.NewReader(f)
+	content, _ := ioutil.ReadAll(reader)
+
+	// Encode as base64.
+	encoded := base64.StdEncoding.EncodeToString(content)
+
+	// bytes, err := ioutil.ReadFile("/Users/relia/Desktop/shipping-services-api-manual.pdf")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
 	result, err := aramex.CreateShipments(context.Background(), &ShipmentCreationRequest{
 		Shipments: []*Shipment{
 			{
 				Shipper: &Party{
 					Contact: &Contact{
 						PersonName:   "Thai  Loi",
-						PhoneNumber1: "+6568727288",
-						CellPhone:    "+6568727288",
+						PhoneNumber1: "+96265607710",
+						CellPhone:    "+96265607710",
 					},
 					PartyAddress: &Address{
-						City:        "Singapore",
-						CountryCode: types.CountryCodeSG,
-						PostCode:    "139945",
+						CountryCode:         types.CountryCodeJO,
+						City:                "Amman",
+						StateOrProvinceCode: "Amman",
+						Line1:               "Line 1",
 					},
 				},
 				Consignee: &Party{
 					Contact: &Contact{
 						PersonName:   "My My",
-						PhoneNumber1: "+6568727288",
-						CellPhone:    "+6568727288",
+						PhoneNumber1: "+96265607710",
+						CellPhone:    "+96265607710",
 						CompanyName:  "Relia",
 						EmailAddress: "thaitanloi365@gmail.com",
 					},
 					PartyAddress: &Address{
-						Line1:       "540 Airport Road Paya Lebar, 539938, Singapore",
-						City:        "Singapore",
-						CountryCode: types.CountryCodeSG,
-						PostCode:    "139945",
+						CountryCode:         types.CountryCodeJO,
+						City:                "Kerak",
+						StateOrProvinceCode: "Kerak",
+						Line1:               "Line 1",
 					},
 				},
 				Details: &ShipmentDetails{
@@ -97,14 +120,21 @@ func TestShippingCreateShipments(t *testing.T) {
 					},
 					NumberOfPieces:     1,
 					DescriptionOfGoods: "Parcel",
-					GoodsOriginCountry: types.CountryCodeSG,
+					GoodsOriginCountry: types.CountryCodeJO,
 					CashOnDeliveryAmount: &Money{
 						CurrencyCode: types.CurrencyCodeSGD,
 						Value:        12.4,
 					},
 				},
-
-				DueDate: time.Now().AddDate(0, 0, 3).Format("2006-01-02T15:04:05"),
+				Attachments: []*Attachment{
+					{
+						FileName:      "test",
+						FileExtension: ".pdf",
+						FileContents:  []byte(encoded),
+					},
+				},
+				ShippingDateTime: time.Now().AddDate(0, 0, 3).Format("2006-01-02T15:04:05"),
+				DueDate:          time.Now().AddDate(0, 0, 3).Format("2006-01-02T15:04:05"),
 			},
 		},
 	})

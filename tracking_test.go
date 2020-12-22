@@ -16,7 +16,7 @@ func TestTrackShipments(t *testing.T) {
 	})
 	result, err := aramex.TrackShipments(context.Background(), &ShipmentTrackingRequest{
 		Shipments: []string{
-			// "41118182136",
+			"41118182136",
 		},
 	})
 	assert.NoError(t, err)
