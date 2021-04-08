@@ -74,9 +74,9 @@ func TestLocationValidateAddress(t *testing.T) {
 
 	result, err := aramex.ValidateAddress(context.Background(), &AddressValidationRequest{
 		Address: &Address{
-			CountryCode:         types.CountryCodeJO,
-			City:                "Kerak",
-			StateOrProvinceCode: "Kerak",
+			CountryCode: types.CountryCodeSG,
+			City:        "Singapore",
+			PostCode:    "123456",
 		},
 	})
 

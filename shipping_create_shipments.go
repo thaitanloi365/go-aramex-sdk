@@ -259,7 +259,7 @@ type ProcessedShipment struct {
 	Reference3          string                         `xml:"Reference3" json:"Reference3"`
 	ForeignHAWB         string                         `xml:"ForeignHAWB" json:"ForeignHAWB"`
 	HasErrors           bool                           `xml:"HasErrors" json:"HasErrors"`
-	Notifications       []*Notification                `xml:"Notifications" json:"Notifications"`
+	Notifications       Notifications                  `xml:"Notifications" json:"Notifications"`
 	ShipmentLabel       *ShipmentLabel                 `xml:"ShipmentLabel" json:"ShipmentLabel"`
 	ShipmentDetails     *ProcessedShipmentDetails      `xml:"ShipmentDetails" json:"ShipmentDetails"`
 	ShipmentAttachments []*ProcessedShipmentAttachment `xml:"ShipmentAttachments" json:"ShipmentAttachments"`
@@ -302,7 +302,7 @@ type ShipmentCreationRequest struct {
 // ShipmentCreationResponse response
 type ShipmentCreationResponse struct {
 	Transaction   *Transaction         `xml:"Transaction" json:"Transaction"`
-	Notifications []*Notification      `xml:"Notifications" json:"Notifications"`
+	Notifications Notifications        `xml:"Notifications" json:"Notifications"`
 	HasErrors     bool                 `xml:"HasErrors" json:"HasErrors"`
 	Shipments     []*ProcessedShipment `xml:"Shipments" json:"Shipments"`
 }

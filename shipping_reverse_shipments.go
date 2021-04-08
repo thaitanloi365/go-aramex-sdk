@@ -35,11 +35,11 @@ type ReserveRangeRequest struct {
 
 // ReserveRangeResponse response
 type ReserveRangeResponse struct {
-	Transaction   *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors     bool            `xml:"HasErrors" json:"HasErrors"`
-	FromWaybill   string          `xml:"FromWaybill" json:"FromWaybill"`
-	ToWaybill     string          `xml:"ToWaybill" json:"ToWaybill"`
+	Transaction   *Transaction  `xml:"Transaction" json:"Transaction"`
+	Notifications Notifications `xml:"Notifications" json:"Notifications"`
+	HasErrors     bool          `xml:"HasErrors" json:"HasErrors"`
+	FromWaybill   string        `xml:"FromWaybill" json:"FromWaybill"`
+	ToWaybill     string        `xml:"ToWaybill" json:"ToWaybill"`
 }
 
 // ReserveShipmentNumberRange reverse shipments

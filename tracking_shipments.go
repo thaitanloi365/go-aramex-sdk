@@ -56,7 +56,7 @@ type ShipmentTrackingRequest struct {
 // ShipmentTrackingResponse response
 type ShipmentTrackingResponse struct {
 	Transaction         *Transaction
-	Notifications       []*Notification
+	Notifications       Notifications
 	HasErrors           bool
 	TrackingResults     map[string][]*TrackingResult
 	NonExistingWaybills []string

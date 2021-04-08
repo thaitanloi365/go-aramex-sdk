@@ -28,10 +28,10 @@ type AddressValidationRequest struct {
 
 // AddressValidationResponse response
 type AddressValidationResponse struct {
-	Transaction        *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications      []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors          bool            `xml:"HasErrors" json:"HasErrors"`
-	SuggestedAddresses []*Address      `xml:"SuggestedAddresses" json:"SuggestedAddresses"`
+	Transaction        *Transaction  `xml:"Transaction" json:"Transaction"`
+	Notifications      Notifications `xml:"Notifications" json:"Notifications"`
+	HasErrors          bool          `xml:"HasErrors" json:"HasErrors"`
+	SuggestedAddresses []*Address    `xml:"SuggestedAddresses" json:"SuggestedAddresses"`
 }
 
 // ValidateAddress validate address

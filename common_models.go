@@ -30,7 +30,7 @@ type Transaction struct {
 
 // arrayOfNotification notifications
 type arrayOfNotification struct {
-	Notification []*Notification `xml:"Notification" json:"Notification"`
+	Notification Notifications `xml:"Notification" json:"Notification"`
 }
 
 // Dimensions dimension

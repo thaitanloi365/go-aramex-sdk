@@ -30,10 +30,10 @@ type PickupCancelationRequest struct {
 
 // PickupCancelationResponse response
 type PickupCancelationResponse struct {
-	Transaction   *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors     bool            `xml:"HasErrors" json:"HasErrors"`
-	Message       string          `xml:"Message" json:"Message"`
+	Transaction   *Transaction  `xml:"Transaction" json:"Transaction"`
+	Notifications Notifications `xml:"Notifications" json:"Notifications"`
+	HasErrors     bool          `xml:"HasErrors" json:"HasErrors"`
+	Message       string        `xml:"Message" json:"Message"`
 }
 
 // CancelPickup cancel pickup

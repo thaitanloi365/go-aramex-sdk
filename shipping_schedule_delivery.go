@@ -52,10 +52,10 @@ type ScheduledDeliveryRequest struct {
 
 // ScheduledDeliveryResponse response
 type ScheduledDeliveryResponse struct {
-	Transaction   *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors     bool            `xml:"HasErrors" json:"HasErrors"`
-	Id            int32           `xml:"Id" json:"Id"`
+	Transaction   *Transaction  `xml:"Transaction" json:"Transaction"`
+	Notifications Notifications `xml:"Notifications" json:"Notifications"`
+	HasErrors     bool          `xml:"HasErrors" json:"HasErrors"`
+	Id            int32         `xml:"Id" json:"Id"`
 }
 
 // ScheduleDelivery schedule delivery

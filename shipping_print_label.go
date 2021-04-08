@@ -36,11 +36,11 @@ type LabelPrintingRequest struct {
 
 // LabelPrintingResponse response
 type LabelPrintingResponse struct {
-	Transaction    *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications  []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors      bool            `xml:"HasErrors" json:"HasErrors"`
-	ShipmentNumber string          `xml:"ShipmentNumber" json:"ShipmentNumber"`
-	ShipmentLabel  *ShipmentLabel  `xml:"ShipmentLabel" json:"ShipmentLabel"`
+	Transaction    *Transaction   `xml:"Transaction" json:"Transaction"`
+	Notifications  Notifications  `xml:"Notifications" json:"Notifications"`
+	HasErrors      bool           `xml:"HasErrors" json:"HasErrors"`
+	ShipmentNumber string         `xml:"ShipmentNumber" json:"ShipmentNumber"`
+	ShipmentLabel  *ShipmentLabel `xml:"ShipmentLabel" json:"ShipmentLabel"`
 }
 
 // PrintLabel create shipments

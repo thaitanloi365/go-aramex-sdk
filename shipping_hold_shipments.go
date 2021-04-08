@@ -42,9 +42,9 @@ type ShipmentHoldDetails struct {
 
 // ProcessedShipmentHold hold shipment
 type ProcessedShipmentHold struct {
-	ID            string          `xml:"ID" json:"ID"`
-	HasErrors     bool            `xml:"HasErrors" json:"HasErrors"`
-	Notifications []*Notification `xml:"Notifications" json:"Notifications"`
+	ID            string        `xml:"ID" json:"ID"`
+	HasErrors     bool          `xml:"HasErrors" json:"HasErrors"`
+	Notifications Notifications `xml:"Notifications" json:"Notifications"`
 }
 
 // HoldCreationRequest request
@@ -56,7 +56,7 @@ type HoldCreationRequest struct {
 // HoldCreationResponse response
 type HoldCreationResponse struct {
 	Transaction            *Transaction             `xml:"Transaction" json:"Transaction"`
-	Notifications          []*Notification          `xml:"Notifications" json:"Notifications"`
+	Notifications          Notifications            `xml:"Notifications" json:"Notifications"`
 	HasErrors              bool                     `xml:"HasErrors" json:"HasErrors"`
 	ProcessedShipmentHolds []*ProcessedShipmentHold `xml:"ProcessedShipmentHolds" json:"ProcessedShipmentHolds"`
 }

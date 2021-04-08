@@ -34,10 +34,10 @@ type CitiesFetchingRequest struct {
 
 // CitiesFetchingResponse response
 type CitiesFetchingResponse struct {
-	Transaction   *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors     bool            `xml:"HasErrors" json:"HasErrors"`
-	Cities        []string        `xml:"Cities" json:"Cities"`
+	Transaction   *Transaction  `xml:"Transaction" json:"Transaction"`
+	Notifications Notifications `xml:"Notifications" json:"Notifications"`
+	HasErrors     bool          `xml:"HasErrors" json:"HasErrors"`
+	Cities        []string      `xml:"Cities" json:"Cities"`
 }
 
 // FetchCities fetch cities

@@ -123,7 +123,7 @@ type PickupCreationRequest struct {
 // PickupCreationResponse response
 type PickupCreationResponse struct {
 	Transaction     *Transaction     `xml:"Transaction" json:"Transaction"`
-	Notifications   []*Notification  `xml:"Notifications" json:"Notifications"`
+	Notifications   Notifications    `xml:"Notifications" json:"Notifications"`
 	HasErrors       bool             `xml:"HasErrors" json:"HasErrors"`
 	ProcessedPickup *ProcessedPickup `xml:"ProcessedPickup" json:"ProcessedPickup"`
 }

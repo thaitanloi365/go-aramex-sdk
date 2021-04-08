@@ -48,11 +48,11 @@ type RateCalculatorRequest struct {
 
 // RateCalculatorResponse response
 type RateCalculatorResponse struct {
-	Transaction   *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors     bool            `xml:"HasErrors" json:"HasErrors"`
-	TotalAmount   *Money          `xml:"TotalAmount" json:"TotalAmount"`
-	RateDetails   *RateDetails    `xml:"RateDetails" json:"RateDetails"`
+	Transaction   *Transaction  `xml:"Transaction" json:"Transaction"`
+	Notifications Notifications `xml:"Notifications" json:"Notifications"`
+	HasErrors     bool          `xml:"HasErrors" json:"HasErrors"`
+	TotalAmount   *Money        `xml:"TotalAmount" json:"TotalAmount"`
+	RateDetails   *RateDetails  `xml:"RateDetails" json:"RateDetails"`
 }
 
 // CalculateRate calculate rate

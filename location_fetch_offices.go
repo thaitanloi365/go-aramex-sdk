@@ -30,10 +30,10 @@ type OfficesFetchingRequest struct {
 
 // OfficesFetchingResponse response
 type OfficesFetchingResponse struct {
-	Transaction   *Transaction    `xml:"Transaction" json:"Transaction"`
-	Notifications []*Notification `xml:"Notifications" json:"Notifications"`
-	HasErrors     bool            `xml:"HasErrors" json:"HasErrors"`
-	Offices       []*Office       `xml:"Offices" json:"Offices"`
+	Transaction   *Transaction  `xml:"Transaction" json:"Transaction"`
+	Notifications Notifications `xml:"Notifications" json:"Notifications"`
+	HasErrors     bool          `xml:"HasErrors" json:"HasErrors"`
+	Offices       []*Office     `xml:"Offices" json:"Offices"`
 }
 
 // FetchOffices fetch offices
