@@ -45,3 +45,15 @@ func (notifications Notifications) HasErrorCode(errorCode string) bool {
 	}
 	return false
 }
+
+func (notifications Notifications) HasErrorCodes(errorCodes ...string) bool {
+	for _, notif := range notifications {
+		for _, errorCode := range errorCodes {
+			if notif.Code == errorCode {
+				return true
+			}
+		}
+
+	}
+	return false
+}
