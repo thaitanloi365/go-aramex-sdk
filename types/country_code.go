@@ -14,6 +14,12 @@ var (
 	CountryCodeJO CountryCode = "JO" // Jordan
 	CountryCodeAF CountryCode = "AF" // Afghanistan
 	CountryCodeAG CountryCode = "AG" // Antigua and Barbuda
+	CountryCodePH CountryCode = "PH" // Philipines
+	CountryCodeMY CountryCode = "MY" // Malaysia
+	CountryCodeVN CountryCode = "VN" // Vietnam
+	CountryCodeHK CountryCode = "HK" // Hong Kong
+	CountryCodeID CountryCode = "HK" // Indonesia
+	CountryCodeTH CountryCode = "TH" // Thailand
 
 )
 
