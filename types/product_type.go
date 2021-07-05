@@ -5,8 +5,9 @@ type ProductGroup string
 
 // All production groups
 var (
-	ProductGroupEXP ProductGroup = "EXP"
-	ProductGroupDOM ProductGroup = "DOM"
+	ProductGroupEXP        ProductGroup = "EXP"
+	ProductGroupDOM        ProductGroup = "DOM"
+	ProductTypeDomesticONP ProductType  = "ONP"
 )
 
 // ProductType type

@@ -14,9 +14,16 @@ func TestTrackShipments(t *testing.T) {
 		IsLive:     false,
 		ClientInfo: DefaultClientInfo,
 	})
+	aramex.client.UserName = "thaitanloi365@gmail.com"
+	aramex.client.Password = "1234qwerR!"
+	aramex.client.AccountNumber = "60510819"
+	aramex.client.AccountPin = "332432"
+	aramex.client.AccountEntity = "SIN"
+	aramex.config.IsLive = true
+
 	result, err := aramex.TrackShipments(context.Background(), &ShipmentTrackingRequest{
 		Shipments: []string{
-			"41118182136",
+			"46272590604",
 		},
 	})
 	assert.NoError(t, err)
