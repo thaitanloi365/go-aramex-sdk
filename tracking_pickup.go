@@ -34,7 +34,7 @@ type PickupTrackingRequest struct {
 // PickupTrackingResponse response
 type PickupTrackingResponse struct {
 	Transaction           *Transaction
-	Notifications         []*Notification
+	Notifications         Notifications
 	HasErrors             bool
 	Entity                string
 	Reference             string

@@ -38,6 +38,7 @@ func New(config *Config) *Aramex {
 		clients[ser] = soap.NewClient(config.getEndpoint(ser))
 	}
 
+	// http://ws.aramex.net/ShippingAPI.V2/Shipping/Service_1_0.svc?wsdl
 	var instance = &Aramex{
 		config:  config,
 		client:  config.ClientInfo,
