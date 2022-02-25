@@ -1,14 +1,11 @@
 package aramex
 
 import (
-	"bufio"
 	"context"
-	"encoding/base64"
-	"io/ioutil"
-	"os"
 	"testing"
 	"time"
 
+	jsoniter "github.com/json-iterator/go"
 	"github.com/stretchr/testify/assert"
 	"github.com/thaitanloi365/go-aramex-sdk/types"
 )
@@ -65,80 +62,144 @@ func TestShippingCreateShipments(t *testing.T) {
 		ClientInfo: DefaultClientInfo,
 	})
 
-	f, err := os.Open("/Users/relia/Desktop/shipping-services-api-manual.pdf")
-	if err != nil {
-		panic(err)
-	}
+	// f, err := os.Open("/Users/triluong/Downloads/sample.pdf")
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	// Read entire JPG into byte slice.
-	reader := bufio.NewReader(f)
-	content, _ := ioutil.ReadAll(reader)
+	// reader := bufio.NewReader(f)
+	// content, _ := ioutil.ReadAll(reader)
 
-	// Encode as base64.
-	encoded := base64.StdEncoding.EncodeToString(content)
+	// // Encode as base64.
+	// encoded := base64.StdEncoding.EncodeToString(content)
 
 	// bytes, err := ioutil.ReadFile("/Users/relia/Desktop/shipping-services-api-manual.pdf")
 	// if err != nil {
 	// 	panic(err)
 	// }
 
-	result, err := aramex.CreateShipments(context.Background(), &ShipmentCreationRequest{
-		Shipments: []*Shipment{
-			{
-				Shipper: &Party{
-					Contact: &Contact{
-						PersonName:   "Thai  Loi",
-						PhoneNumber1: "+96265607710",
-						CellPhone:    "+96265607710",
-					},
-					PartyAddress: &Address{
-						CountryCode:         types.CountryCodeJO,
-						City:                "Amman",
-						StateOrProvinceCode: "Amman",
-						Line1:               "Line 1",
-					},
-				},
-				Consignee: &Party{
-					Contact: &Contact{
-						PersonName:   "My My",
-						PhoneNumber1: "+96265607710",
-						CellPhone:    "+96265607710",
-						CompanyName:  "Relia",
-						EmailAddress: "thaitanloi365@gmail.com",
-					},
-					PartyAddress: &Address{
-						CountryCode:         types.CountryCodeJO,
-						City:                "Kerak",
-						StateOrProvinceCode: "Kerak",
-						Line1:               "Line 1",
-					},
-				},
-				Details: &ShipmentDetails{
-					ActualWeight: &Weight{
-						Unit:  types.WeightUnitKG,
-						Value: 0.5,
-					},
-					NumberOfPieces:     1,
-					DescriptionOfGoods: "Parcel",
-					GoodsOriginCountry: types.CountryCodeJO,
-					CashOnDeliveryAmount: &Money{
-						CurrencyCode: types.CurrencyCodeSGD,
-						Value:        12.4,
-					},
-				},
-				Attachments: []*Attachment{
-					{
-						FileName:      "test",
-						FileExtension: ".pdf",
-						FileContents:  []byte(encoded),
-					},
-				},
-				ShippingDateTime: time.Now().AddDate(0, 0, 3).Format("2006-01-02T15:04:05"),
-				DueDate:          time.Now().AddDate(0, 0, 3).Format("2006-01-02T15:04:05"),
-			},
-		},
-	})
-	assert.NoError(t, err)
+	var rawData = []byte(`
+	{
+    "Shipments": [
+        {
+            "Reference1": "OR-TEST12-123456",
+            "Reference2": "",
+            "Reference3": "",
+            "Shipper": {
+                "Reference1": "",
+                "Reference2": "",
+                "AccountNumber": "20016",
+                "PartyAddress": {
+                    "Line1": " 76 Shenton, 76 Shenton Way, 079119",
+                    "Line2": "",
+                    "Line3": "",
+                    "City": "Singapore",
+                    "PostCode": "079119",
+                    "CountryCode": "SG",
+                    "POBox": "",
+                    "Description": ""
+                },
+                "Contact": {
+                    "Department": "",
+                    "PersonName": "Tri Test",
+                    "Title": "",
+                    "CompanyName": "",
+                    "PhoneNumber1": "+6565325277",
+                    "PhoneNumber1Ext": "",
+                    "PhoneNumber2": "",
+                    "PhoneNumber2Ext": "",
+                    "FaxNumber": "",
+                    "CellPhone": "+6565325277",
+                    "EmailAddress": "tritest@mailinator.com",
+                    "Type": ""
+                }
+            },
+            "Consignee": {
+                "Reference1": "",
+                "Reference2": "",
+                "AccountNumber": "",
+                "PartyAddress": {
+                    "Line1": " 515, Pesiaran Sultan Salahuddin, 50480",
+                    "Line2": "",
+                    "Line3": "",
+                    "City": "Kuala Lumpur",
+                    "StateOrProvinceCode": "Kuala Lumpur",
+                    "PostCode": "50480",
+                    "CountryCode": "MY",
+                    "POBox": "",
+                    "Description": ""
+                },
+                "Contact": {
+                    "Department": "",
+                    "PersonName": "test_padad das c_01",
+                    "Title": "",
+                    "CompanyName": "test_padad das c_01",
+                    "PhoneNumber1": "+606313412341",
+                    "PhoneNumber1Ext": "",
+                    "PhoneNumber2": "",
+                    "PhoneNumber2Ext": "",
+                    "FaxNumber": "",
+                    "CellPhone": "+606313412341",
+                    "EmailAddress": "tritest@mailinator.com",
+                    "Type": ""
+                }
+            },
+            "ShippingDateTime": "2022-03-02T07:00:00",
+            "DueDate": "2022-03-02T07:00:00",
+            "Comments": "",
+            "PickupLocation": "Security",
+            "OperationsInstructions": "conten as  dt_01 / xxx",
+            "AccountingInstrcutions": "",
+            "Details": {
+                "ActualWeight": {
+                    "Unit": "KG",
+                    "Value": 1
+                },
+                "ChargeableWeight": {
+                    "Unit": "KG",
+                    "Value": 1
+                },
+                "DescriptionOfGoods": "",
+                "GoodsOriginCountry": "SG",
+                "NumberOfPieces": 2,
+                "ProductGroup": "EXP",
+                "ProductType": "PPX",
+                "PaymentType": "",
+                "PaymentOptions": "",
+				"CustomsValueAmount": 12,
+                "CashAdditionalAmountDescription": "",
+                "ContainsDangerousGoods": false
+            },
+            "Attachments": [
+                {
+                    "FileName": "invoice_20220125-000001",
+                    "FileExtension": ".pdf"
+                }
+            ],
+            "ForeignHAWB": "",
+            "PickupGUID": "",
+            "Number": ""
+        }
+    ],
+    "LabelInfo": {
+        "ReportID": 9201,
+        "ReportType": "URL"
+    }
+}
+	`)
+
+	var params *ShipmentCreationRequest
+
+	jsoniter.Unmarshal(rawData, &params)
+
+	aramex.printJSON(&params)
+
+	result, err := aramex.CreateShipments(context.Background(), params)
+
+	if err != nil {
+		panic(err)
+	}
 
 	aramex.printJSON(&result)
 }
